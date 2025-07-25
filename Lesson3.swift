@@ -8,16 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var thing: Bool = false
+    @State var number = 0
     var body: some View {
         VStack {
-            Button(thing ? "fried chicken" : "ice cream") {
-                thing.toggle()
-                
+            Button("+") {
+                self.number += 1
             }
-            .foregroundStyle(Color.red)
-            .clipShape(Capsule())
-            .background(Color(red: 0, green: 0, blue: 0))
+            .font(.largeTitle)
+
+            Text("\(number)")
+                .font(.largeTitle)
+
+            Button("-") {
+                self.number -= 1
+            }
+            .font(.largeTitle)
+            
+            Button("Reset")
+            {
+                self.number = 0
+            }
+            .font(.largeTitle)
+            
+
             
         }
         .padding()
@@ -28,8 +41,33 @@ struct ContentView: View {
     ContentView()
 }
 
-var num = 5
-var numbers = [2, 4, 25, 15]
-var multiply = numbers.map({$0 * num})
-print(multiply)
+import SwiftUI
 
+struct ContentView: View {
+    // Array of messages
+    let messages = ["Swift", "Python", "C++", "LUA", "C#", "C", "R#", "HTML", "Javascript", "CSS"]
+
+    // State variable to track current index
+    @State private var index = 0
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text(messages[index])
+                .font(.title)
+                .padding()
+
+            Button("Next Message") {
+                // Go to the next message
+                index = (index + 1) % messages.count
+            }
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+        }
+    }
+}
+
+#Preview {
+    ContentView()
+}
