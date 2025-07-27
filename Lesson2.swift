@@ -1,3 +1,5 @@
+
+
 //get input from user for both variables 
 
 print("I love Mr Yeo")
