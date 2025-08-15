@@ -158,3 +158,89 @@ struct MediaView: View {
         .navigationTitle("Media & Purchases")
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////
+
+
+
+
+
+import SwiftUI
+
+struct SettingItem: Identifiable {
+    let id = UUID()
+    var name: String
+}
+
+@main
+struct SettingsApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
+
+struct ContentView: View {
+    @State private var items: [SettingItem] = [
+        SettingItem(name: "Wi-Fi"),
+        SettingItem(name: "Bluetooth"),
+        SettingItem(name: "Notifications")
+    ]
+    @State private var newItemName: String = ""
+
+    var body: some View {
+        NavigationView {
+            List {
+                Section(header: Text("General").font(.largeTitle)) {
+                    ForEach(items) { item in
+                        NavigationLink(destination: DetailView(item: item)) {
+                            Text(item.name)
+                        }
+                    }
+                }
+
+                Section(header: Text("Add New Setting")) {
+                    HStack {
+                        TextField("Enter setting name", text: $newItemName)
+                        Button("Add") {
+                            if !newItemName.isEmpty {
+                                items.append(SettingItem(name: newItemName))
+                                newItemName = ""
+                            }
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                }
+            }
+            .navigationTitle("Settings")
+        }
+    }
+}
+
+// Detail view
+struct DetailView: View {
+    var item: SettingItem
+
+    var body: some View {
+        VStack {
+            Text(item.name)
+                .font(.largeTitle)
+                .padding()
+            Spacer()
+        }
+        .navigationTitle(item.name)
+    }
+}
+
